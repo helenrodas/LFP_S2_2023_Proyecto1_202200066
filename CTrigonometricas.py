@@ -11,11 +11,17 @@ class CTrigonometrica(abstract):
         leftValue = ''
         if self.left != None:
             leftValue = self.left.operar(arbol)
-        if self.tipo == 'Seno':
+        if self.tipo.operar(arbol) == 'seno':
             return sin(leftValue)
-        elif self.tipo == 'Coseno':
+        elif self.tipo.operar(arbol) == 'coseno':
             return cos(leftValue)
-        elif self.tipo == 'Tangente':
+        elif self.tipo.operar(arbol) == 'tangente':
             return tan(leftValue)
         else:
             return None
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()

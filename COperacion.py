@@ -2,10 +2,15 @@ from abstract import abstract
 
 class COperacion(abstract):
     
-    def __init__(self, valor,tipo,fila, columna):
+    def __init__(self, valor,fila, columna):
         self.valor = valor
-        self.tipo = tipo
         super().__init__(fila, columna)
     
     def operar(self,arbol):
         return self.valor
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()

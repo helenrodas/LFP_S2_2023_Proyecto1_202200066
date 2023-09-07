@@ -8,9 +8,11 @@ class abstract(ABC):
     @abstractmethod
     def operar(self,arbol):
         pass
+    
     @abstractmethod
     def getFila(self):
         return self.fila
+    
     @abstractmethod
     def getColumna(self):
         return self.columna

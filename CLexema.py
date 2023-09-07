@@ -7,3 +7,9 @@ class CLexema(abstract):
     
     def operar(self, arbol):
         return self.lexema
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()

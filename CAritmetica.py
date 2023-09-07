@@ -16,21 +16,27 @@ class CAritmetica(abstract):
         if self.right != None:
             rightValue = self.right.operar(arbol)
         
-        if self.tipo == 'Suma':
+        if self.tipo.operar(arbol) == 'suma':
             return leftValue + rightValue
-        elif self.tipo == 'Resta':
+        elif self.tipo.operar(arbol) == 'resta':
             return leftValue - rightValue
-        elif self.tipo == 'Multiplicacion':
+        elif self.tipo.operar(arbol) == 'multiplicacion':
             return leftValue + rightValue
-        elif self.tipo == 'Division':
+        elif self.tipo.operar(arbol) == 'division':
             return leftValue / rightValue
-        elif self.tipo == 'Modulo':
+        elif self.tipo.operar(arbol) == 'modulo':
             return leftValue % rightValue
-        elif self.tipo == 'Potencia':
+        elif self.tipo.operar(arbol) == 'potencia':
             return leftValue ** rightValue
-        elif self.tipo == 'Raiz':
+        elif self.tipo.operar(arbol) == 'raiz':
             return leftValue ** (1/rightValue)
-        elif self.tipo == 'Inverso':
+        elif self.tipo.operar(arbol) == 'inverso':
             return 1/leftValue 
         else:
             return None       
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()
