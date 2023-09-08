@@ -1,11 +1,15 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
+from analizador_lexico import instruccion, operar_
 
 class TextEditorApp:
+    global content
     def __init__(self, root):
         self.root = root
         self.root.title("Menu")
+        self.file_path = None
+        
 
         self.line_number_bar = tk.Text(root, width=4, padx=4, takefocus=0, border=0, background='lightblue', state='disabled')
         self.line_number_bar.pack(side=tk.LEFT, fill=tk.Y)
@@ -27,17 +31,19 @@ class TextEditorApp:
         self.menu_bar.add_cascade(label="Archivo", menu=self.file_menu)
         self.file_menu.add_command(label="Abrir", command=self.open_file)
         self.file_menu.add_command(label="Guardar", command=self.save_file)
-        self.file_menu.add_command(label="Guardar Como", command=self.save_file)
+        self.file_menu.add_command(label="Guardar Como", command=self.save_as_file)
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Salir", command=self.root.quit)
         
-        self.menu_bar.add_cascade(label="Analizar")
+        self.menu_bar.add_cascade(label="Analizar", command=self.ejecutar)
         self.menu_bar.add_cascade(label="Errores")
         self.menu_bar.add_cascade(label="Reporte")
 
 
     def open_file(self):
+        global content
         file_path = filedialog.askopenfilename(filetypes=[("Archivos json", "*.json")])
+        self.file_path = file_path 
         if file_path:
             with open(file_path, 'r') as file:
                 content = file.read()
@@ -45,8 +51,10 @@ class TextEditorApp:
                 self.text_widget.insert(tk.END, content)
             self.update_line_numbers()
 
+
     def save_file(self):
-        file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos de texto", "*.json")])
+        # file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos", "*.json")])
+        file_path = self.file_path
         if file_path:
             content = self.text_widget.get(1.0, tk.END)
             with open(file_path, 'w') as file:
@@ -54,7 +62,7 @@ class TextEditorApp:
             messagebox.showinfo("Guardado", "Archivo guardado exitosamente.")
     
     def save_as_file(self):
-        file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos de texto", "*.json")])
+        file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos", "*.json")])
         if file_path:
             content = self.text_widget.get(1.0, tk.END)
             with open(file_path, 'w+') as file:
@@ -70,6 +78,16 @@ class TextEditorApp:
                 self.line_number_bar.insert(tk.END, f"{line}\n")
             self.line_number_bar.config(state=tk.DISABLED)
             self.current_line = line_count
+    
+    def ejecutar(self):
+        global content
+        instruccion(content)
+        resultados = operar_()
+        resultados_as_string = ""
+        for resultado in resultados:
+            resultados_as_string += str(resultado.operar(None)) + "\n"
+            # print(resultado.operar(None))
+        messagebox.showinfo("Resultados",resultados_as_string)
 
 
 if __name__ == "__main__":

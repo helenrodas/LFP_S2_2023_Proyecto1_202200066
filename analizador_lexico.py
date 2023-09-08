@@ -93,10 +93,11 @@ def instruccion(cadena):
             cadena = cadena[1:]
             puntero = 0
             columna += 1
-    print("--------------------")
-    for lexema in lista_lexemas:  #En caso de necesitar un reporte de lexemas
-        print(lexema)
-    print("--------------------")
+    # print("--------------------")
+    # for lexema in lista_lexemas:  #En caso de necesitar un reporte de lexemas
+    #     print(lexema)
+    # print("--------------------")
+    return lista_lexemas
 
 
 def crear_lexema(cadena):
@@ -166,8 +167,10 @@ def operar_():
             instruccioness.append(operacion)
         else:
             break
-    for ins in instruccioness:
-        print(ins.operar(None))
+    # for ins in instruccioness:
+    #     print(ins.operar(None))
+        
+    return instruccioness
 
 entrada = '''{
     "operaciones": [
@@ -218,5 +221,5 @@ entrada = '''{
     ]
 }'''
 
-instruccion(entrada)
-operar_()
+# instruccion(entrada)
+# operar_()
