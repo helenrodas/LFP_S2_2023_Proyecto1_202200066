@@ -3,15 +3,20 @@ from CTrigonometricas import CTrigonometrica
 from CLexema import CLexema
 from abstract import abstract
 from COperacion import COperacion
+from CError import CError
+import json
 
 
 reversed = {
     'OPERACIONES' : 'operaciones',
+    'OPERACION' : 'operacion',
+    'Valor1' : 'valor1',
+    'Valor2' : 'valor2',
     'SUMA' : 'suma',
     'RESTA': 'resta',
     'MULTIPLICACIÓN' : 'multiplicacion',
     'DIVISIÓN' : 'division',
-    'POTENCIA' : 'potencias',
+    'POTENCIA' : 'potencia',
     'RAIZ' : 'raiz',
     'INVERSO' : 'inverso',
     'SENO' : 'seno',
@@ -38,20 +43,24 @@ global columna
 global instruccion
 global lista_lexemas
 global instruccioness
+global lista_lexemas_errores
 
 linea = 1
 columna = 1
 lista_lexemas = []
 instruccion = []
 instruccioness = []
+lista_lexemas_errores= []
 
 
 def instruccion(cadena):
     global linea
     global columna
     global lista_lexemas
+    global lista_lexemas_errores
     lexema =''
     puntero = 0
+    contador = 1
     while cadena:
         caracter = cadena [puntero]
         puntero += 1
@@ -89,13 +98,20 @@ def instruccion(cadena):
             puntero = 0
             linea += 1
             columna = 1
+        elif caracter == ' ' or caracter == '\r' or caracter == '{' or caracter == '}' or caracter == ',' or caracter == '.' or caracter == ':' :
+            cadena = cadena[1:]
+            puntero = 0
+            columna += 1
         else:
             cadena = cadena[1:]
             puntero = 0
             columna += 1
+            lista_lexemas_errores.append(CError(contador,caracter,"Error Lexico",linea,columna))
+            contador +=1
     # print("--------------------")
-    # for lexema in lista_lexemas:  #En caso de necesitar un reporte de lexemas
-    #     print(lexema)
+    # for error in lista_lexemas_errores:
+    #     print("Error encontrado: Lexema: {}, Contador: {}, Tipo de Error: {}, Fila: {}, Columna: {}".format(
+    #         error.lexema, error.contador, error.tipo_error, error.getFila(), error.getColumna()))
     # print("--------------------")
     return lista_lexemas
 
@@ -172,6 +188,36 @@ def operar_():
         
     return instruccioness
 
+def getErrores():
+    global lista_lexemas_errores
+    return lista_lexemas_errores
+
+def archivo_final():
+    global lista_lexemas_errores
+    lista_temp = {}
+    lista_temp["Errores"] = []
+    
+    for error in lista_lexemas_errores:
+        lista_temp["Errores"].append({
+            'No.' : error.contador,
+            'descripcion ' :{
+                'lexema' : error.lexema_error,
+                'tipo' : error.tipo_error,
+                'columna' : error.columna,
+                'fila' : error.fila
+            }
+        })
+    
+    with open('RESULTADOS_202200066.json','w') as file:
+        json.dump(lista_temp,file,indent=4)
+
+def clear():
+    linea = 1
+    columna = 1
+    lista_lexemas.clear()
+    instruccioness.clear()
+    lista_lexemas_errores.clear()
+    
 entrada = '''{
     "operaciones": [
         {
@@ -223,3 +269,4 @@ entrada = '''{
 
 # instruccion(entrada)
 # operar_()
+# "suma" or "resta" or "multiplicacion" or "division" or "potencia" or "raiz" or "inverso" or "seno" or "coseno" or "tangente" or "mod" or"operaciones" or "operacion":

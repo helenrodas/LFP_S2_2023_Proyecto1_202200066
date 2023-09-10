@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
-from analizador_lexico import instruccion, operar_
+from analizador_lexico import instruccion, operar_,archivo_final,clear
+# from analizador_lexico import analizador_lexico
 
 class TextEditorApp:
     global content
@@ -35,12 +36,13 @@ class TextEditorApp:
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Salir", command=self.root.quit)
         
-        self.menu_bar.add_cascade(label="Analizar", command=self.ejecutar)
-        self.menu_bar.add_cascade(label="Errores")
+        self.menu_bar.add_cascade(label="Analizar", command=self.analizar)
+        self.menu_bar.add_cascade(label="Errores", command=self.errores)
         self.menu_bar.add_cascade(label="Reporte")
 
 
     def open_file(self):
+        clear()
         global content
         file_path = filedialog.askopenfilename(filetypes=[("Archivos json", "*.json")])
         self.file_path = file_path 
@@ -54,6 +56,7 @@ class TextEditorApp:
 
     def save_file(self):
         # file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos", "*.json")])
+        global content
         file_path = self.file_path
         if file_path:
             content = self.text_widget.get(1.0, tk.END)
@@ -62,6 +65,7 @@ class TextEditorApp:
             messagebox.showinfo("Guardado", "Archivo guardado exitosamente.")
     
     def save_as_file(self):
+        global content
         file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos", "*.json")])
         if file_path:
             content = self.text_widget.get(1.0, tk.END)
@@ -79,15 +83,30 @@ class TextEditorApp:
             self.line_number_bar.config(state=tk.DISABLED)
             self.current_line = line_count
     
-    def ejecutar(self):
-        global content
-        instruccion(content)
-        resultados = operar_()
-        resultados_as_string = ""
-        for resultado in resultados:
-            resultados_as_string += str(resultado.operar(None)) + "\n"
-            # print(resultado.operar(None))
-        messagebox.showinfo("Resultados",resultados_as_string)
+    def analizar(self):
+        try:
+            clear()
+            global content
+            instruccion(content)
+            resultados = operar_()
+            resultados_as_string = ""
+            operacion = 1
+            for resultado in resultados:
+                if isinstance(resultado.operar(None), int) or isinstance(resultado.operar(None),float) == True:
+                    resultados_as_string += str(f"Operacion: {operacion} --> {resultado.tipo.operar(None)} = {resultado.operar(None)}") + "\n"
+                    operacion += 1
+                # print(resultado.operar(None))
+            messagebox.showinfo("Resultados",resultados_as_string)
+        except:
+            messagebox.showinfo("Error", "No se encontro archivo para analizar")
+    
+    def errores(self):
+        try:
+            archivo_final()
+            messagebox.showinfo("Archivo salida", "Se genero archivo de errores")
+        except:
+            messagebox.showinfo("Error", "No se pudo crear archivo de errores")
+            
 
 
 if __name__ == "__main__":

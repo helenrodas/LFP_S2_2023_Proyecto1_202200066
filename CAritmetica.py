@@ -33,7 +33,7 @@ class CAritmetica(abstract):
         elif self.tipo.operar(arbol) == 'inverso':
             return 1/leftValue 
         else:
-            return None       
+            return 0      
     
     def getFila(self):
         return super().getFila()
