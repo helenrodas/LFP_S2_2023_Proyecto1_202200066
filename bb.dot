@@ -1,0 +1,36 @@
+digraph G {
+                    label=" Operaciones"
+                    rankdir="TB"
+                    node[style=filled, color=" blue", fontcolor=" white", shape=circle, width=1.0, height=1.0]nodo00[label="resta\n-0.82"];
+nodo01_left[label="4.5"];
+nodo00 -> nodo01_left;
+nodo01_right[label="5.32"];
+nodo00 -> nodo01_right;
+nodo10[label="resta\n-995.5"];
+nodo11_left[label="4.5"];
+nodo10 -> nodo11_left;
+nodo11_right[label="potencia\n1000"];
+nodo12_right_left[label="10"];
+nodo11_right -> nodo12_right_left;
+nodo12_right_right[label="3"];
+nodo11_right -> nodo12_right_right;
+nodo10 -> nodo11_right;
+nodo20[label="suma\n6.214"];
+nodo21_left[label="seno\n0.894"];
+nodo22_left_tri[label="90"];
+nodo21_left -> nodo22_left_tri;
+nodo20 -> nodo21_left;
+nodo21_right[label="5.32"];
+nodo20 -> nodo21_right;
+nodo30[label="multiplicacion\n21"];
+nodo31_left[label="7"];
+nodo30 -> nodo31_left;
+nodo31_right[label="3"];
+nodo30 -> nodo31_right;
+nodo40[label="division\n5.0"];
+nodo41_left[label="15"];
+nodo40 -> nodo41_left;
+nodo41_right[label="3"];
+nodo40 -> nodo41_right;
+
+}

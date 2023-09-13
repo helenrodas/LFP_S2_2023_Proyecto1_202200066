@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinter.scrolledtext import ScrolledText
-from analizador_lexico import instruccion, operar_,archivo_final,clear
+from analizador_lexico import instruccion, operar_,archivo_final,clear,graficar_operaciones
 # from analizador_lexico import analizador_lexico
 
 class TextEditorApp:
@@ -14,6 +14,8 @@ class TextEditorApp:
 
         self.line_number_bar = tk.Text(root, width=4, padx=4, takefocus=0, border=0, background='lightblue', state='disabled')
         self.line_number_bar.pack(side=tk.LEFT, fill=tk.Y)
+
+    
 
         self.text_widget = ScrolledText(self.root, wrap=tk.WORD)
         self.text_widget=ScrolledText(root,width=150,height=50)
@@ -38,7 +40,7 @@ class TextEditorApp:
         
         self.menu_bar.add_cascade(label="Analizar", command=self.analizar)
         self.menu_bar.add_cascade(label="Errores", command=self.errores)
-        self.menu_bar.add_cascade(label="Reporte")
+        self.menu_bar.add_cascade(label="Reporte", command=self.reporte_grafica)
 
 
     def open_file(self):
@@ -106,6 +108,14 @@ class TextEditorApp:
             messagebox.showinfo("Archivo salida", "Se genero archivo de errores")
         except:
             messagebox.showinfo("Error", "No se pudo crear archivo de errores")
+    
+    def reporte_grafica(self):
+        try:
+            graficar_operaciones()
+            messagebox.showinfo("Grafica", "Grafica creada exitosamente")
+        except:
+            messagebox.showinfo("Error", "No se pudo crear grafica")
+            
             
 
 

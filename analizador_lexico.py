@@ -5,6 +5,7 @@ from abstract import abstract
 from COperacion import COperacion
 from CError import CError
 import json
+import os
 
 
 reversed = {
@@ -44,6 +45,10 @@ global instruccion
 global lista_lexemas
 global instruccioness
 global lista_lexemas_errores
+global textos
+global fondo
+global fuente
+global forma
 
 linea = 1
 columna = 1
@@ -140,7 +145,7 @@ def get_num(cadena):
             decimal = True
         if caracter == '"' or caracter == ' ' or caracter == '\n' or caracter == '\t' or caracter == ',':
             if decimal:
-                return float(num), cadena[len(puntero)-1:]
+                return round(float(num), 3), cadena[len(puntero)-1:]
             else:
                 return int(num), cadena[len(puntero)-1:]
         else:
@@ -150,6 +155,10 @@ def get_num(cadena):
 def operar():
     global lista_lexemas
     global instruccion
+    global textos
+    global fondo
+    global fuente
+    global forma
     operacion = ''
     n1 = ''
     n2 = ''
@@ -165,6 +174,19 @@ def operar():
             n2=lista_lexemas.pop(0)
             if n2.operar(None) == '[':
                 n2=operar()
+                
+        if CLexema.operar(None) == 'textos':
+            textos = lista_lexemas.pop(0)
+            
+        if CLexema.operar(None) == 'fondo':
+            fondo = lista_lexemas.pop(0)
+            
+        if CLexema.operar(None) == 'fuente':
+            fuente = lista_lexemas.pop(0)
+            
+        if CLexema.operar(None) == 'forma':
+            forma  = lista_lexemas.pop(0)
+
         
         if operacion and n1 and n2:
             return CAritmetica(n1, n2, operacion, f'Inicio:{operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n2.getFila()}:{n2.getColumna()}')
@@ -217,6 +239,59 @@ def clear():
     lista_lexemas.clear()
     instruccioness.clear()
     lista_lexemas_errores.clear()
+
+def graficar_operaciones():
+        global instruccioness
+
+        texto = """digraph G {
+                    label=" """+textos.lexema+""""
+                    rankdir="TB"
+                    node[style=filled, color=" """+fondo.lexema+"""", fontcolor=" """+fuente.lexema+"""", shape="""+forma.lexema+""", width=1.0, height=1.0]"""
+
+        for i in range(len(instruccioness)):
+            texto += nodos_grafica(instruccioness[i], i, 0, '')
+            # texto += nodos_grafica(instruccioness[i], i, 0,'')
+            
+
+        texto += "\n}"
+        f = open('bb.dot', 'w')
+
+        f.write(texto)
+        f.close()
+        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
+        os.system(f'dot -Tpng bb.dot -o GRAFICA_202200066.png')
+    
+
+def nodos_grafica(operacion, numero, llave, barra):
+        valor = ""
+
+        if operacion:
+            if type(operacion) == COperacion:
+                
+                valor += f'nodo{numero}{llave}{barra}[label="{operacion.operar(None)}"];\n'
+
+
+            if type(operacion) == CAritmetica:
+                valor += f'nodo{numero}{llave}{barra}[label="{operacion.tipo.lexema}\\n{operacion.operar(None)}"];\n'
+
+                valor += nodos_grafica(operacion.left ,numero, llave+1, barra+"_left")
+
+                valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_left;\n'
+
+                valor += nodos_grafica(operacion.right,numero, llave+1, barra+"_right")
+
+                valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_right;\n'
+            
+            if type(operacion) == CTrigonometrica:
+                
+                valor += f'nodo{numero}{llave}{barra}[label="{operacion.tipo.lexema}\\n{operacion.operar(None)}"];\n'
+
+                valor += nodos_grafica(operacion.left,numero, llave+1, barra+"_tri")
+
+                valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_tri;\n'
+
+
+        return valor
     
 entrada = '''{
     "operaciones": [

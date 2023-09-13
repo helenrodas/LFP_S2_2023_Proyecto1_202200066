@@ -12,13 +12,13 @@ class CTrigonometrica(abstract):
         if self.left != None:
             leftValue = self.left.operar(arbol)
         if self.tipo.operar(arbol) == 'seno':
-            return sin(leftValue)
+            return round(sin(leftValue), 3)
         elif self.tipo.operar(arbol) == 'coseno':
-            return cos(leftValue)
+            return round(cos(leftValue), 3)
         elif self.tipo.operar(arbol) == 'tangente':
-            return tan(leftValue)
+            return round(tan(leftValue), 3)
         else:
-            return None
+            return 0
     
     def getFila(self):
         return super().getFila()

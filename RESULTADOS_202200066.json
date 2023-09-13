@@ -6,7 +6,7 @@
                 "lexema": "*",
                 "tipo": "Error Lexico",
                 "columna": 4,
-                "fila": 49
+                "fila": 1
             }
         },
         {
@@ -15,7 +15,7 @@
                 "lexema": "?",
                 "tipo": "Error Lexico",
                 "columna": 12,
-                "fila": 67
+                "fila": 19
             }
         }
     ]
