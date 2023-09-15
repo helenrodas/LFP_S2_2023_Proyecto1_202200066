@@ -57,7 +57,6 @@ class TextEditorApp:
 
 
     def save_file(self):
-        # file_path = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[("Archivos", "*.json")])
         global content
         file_path = self.file_path
         if file_path:

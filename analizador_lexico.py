@@ -74,9 +74,7 @@ def instruccion(cadena):
             lexema, cadena = crear_lexema(cadena[puntero:])
             if lexema and cadena:
                 columna += 1
-                #Se arma el lexema como clase
                 lex = CLexema(lexema,linea,columna)
-                #Se agrega el lexema a la lista de lexemas
                 lista_lexemas.append(lex)
                 columna += len(lexema) + 1
                 puntero = 0
@@ -113,11 +111,6 @@ def instruccion(cadena):
             columna += 1
             lista_lexemas_errores.append(CError(contador,caracter,"Error Lexico",linea,columna))
             contador +=1
-    # print("--------------------")
-    # for error in lista_lexemas_errores:
-    #     print("Error encontrado: Lexema: {}, Contador: {}, Tipo de Error: {}, Fila: {}, Columna: {}".format(
-    #         error.lexema, error.contador, error.tipo_error, error.getFila(), error.getColumna()))
-    # print("--------------------")
     return lista_lexemas
 
 
@@ -205,8 +198,6 @@ def operar_():
             instruccioness.append(operacion)
         else:
             break
-    # for ins in instruccioness:
-    #     print(ins.operar(None))
         
     return instruccioness
 
@@ -293,55 +284,3 @@ def nodos_grafica(operacion, numero, llave, barra):
 
         return valor
     
-entrada = '''{
-    "operaciones": [
-        {
-            "operacion": "suma",
-            "valor1": 4.5,
-            "valor2": 5.32
-        },
-        {
-            "operacion": "resta",
-            "valor1": 4.5,
-            "valor2": [
-                {
-                    "operacion": "potencia",
-                    "valor1": 10,
-                    "valor2": 3
-                }
-            ]
-        },
-        {
-            "operacion": "suma",
-            "valor1": [
-                {
-                    "operacion": "seno",
-                    "valor1": 90
-                }
-            ],
-            "valor2": 5.32
-        },
-        {
-            "operacion": "multiplicacion",
-            "valor1": 7,
-            "valor2": 3
-        },
-        {
-            "operacion": "division",
-            "valor1": 15,
-            "valor2": 3
-        }
-    ],
-    "configuraciones": [
-        {
-            "textos": "Operaciones",
-            "fondo": "azul",
-            "fuente": "blanco",
-            "forma": "circulo"
-        }
-    ]
-}'''
-
-# instruccion(entrada)
-# operar_()
-# "suma" or "resta" or "multiplicacion" or "division" or "potencia" or "raiz" or "inverso" or "seno" or "coseno" or "tangente" or "mod" or"operaciones" or "operacion":
