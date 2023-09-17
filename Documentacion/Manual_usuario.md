@@ -9,9 +9,9 @@ Se inicializa el programa y se muestra la siguiente pantalla la cual se pueden e
 
 #### 1. Archivo
 - Abrir: Permite abrir un archivo .json que se encuentre previamente en los documentos de la computadora.
-![Pantalla de inicio](P:/Programacion/PracticasPython/Proyecto1LF/Imagenes/abrir.png)
+![Pantalla de inicio](/Proyecto1LF/Imagenes/abrir.png)
 Una vez seleccionado el archivo se mostrara en la pantalla principal de la aplicacion.
-![Pantalla de inicio](P:/Programacion/PracticasPython/Proyecto1LF/Imagenes/abrir_mostrar.png)
+![Pantalla de inicio](Proyecto1LF/Imagenes/abrir_mostrar.png)
 
 - Guardar: En caso de que el archivo actual abierto haya sido modificado se puede guardar los cambios en el mismo archivo.
 ![Pantalla de inicio](P:/Programacion/PracticasPython/Proyecto1LF/Imagenes/guardar.png)
