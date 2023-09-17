@@ -308,3 +308,231 @@ def operar():
             return CTrigonometrica( n1,operacion, f'Inicio:{operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
     return None
 ```
+- operar_() esta funcion aplica recursividad pues es la principal una vez inicializado el programa
+```python
+def operar_():
+    global instruccioness
+    
+    while True:
+        operacion = operar()
+        if operacion:
+            instruccioness.append(operacion)
+        else:
+            break
+        
+    return instruccioness
+```
+- getErrores() es una funcion que me regresa una lista que contiene los errores que fueron identificados
+```python
+def getErrores():
+    global lista_lexemas_errores
+    return lista_lexemas_errores
+```
+- archivo_final() es la funcion que crea el archivo json de salida que contiene los errores, el tipo de error y la ubicacion
+```python
+def archivo_final():
+    global lista_lexemas_errores
+    lista_temp = {}
+    lista_temp["Errores"] = []
+    
+    for error in lista_lexemas_errores:
+        lista_temp["Errores"].append({
+            'No.' : error.contador,
+            'descripcion ' :{
+                'lexema' : error.lexema_error,
+                'tipo' : error.tipo_error,
+                'columna' : error.columna,
+                'fila' : error.fila
+            }
+        })
+    
+    with open('RESULTADOS_202200066.json','w') as file:
+        json.dump(lista_temp,file,indent=4)
+```
+- clear() va a limpiar las listas borrando la informacion que contenga y las inicializa de nuevo para volverlas a llenar
+```python
+def clear():
+    linea = 1
+    columna = 1
+    lista_lexemas.clear()
+    instruccioness.clear()
+    lista_lexemas_errores.clear()
+```
+- graficar_operaciones() es la funcion que se encarga de graficar los resultados tomando en cuenta las caracteristicas que debe tener especificadas en el documento json.
+```python
+def graficar_operaciones():
+        global instruccioness
+
+        texto = """digraph G {
+                    label=" """+textos.lexema+""""
+                    rankdir="TB"
+                    node[style=filled, color=" """+fondo.lexema+"""", fontcolor=" """+fuente.lexema+"""", shape="""+forma.lexema+""", width=1.0, height=1.0]"""
+
+        for i in range(len(instruccioness)):
+            texto += nodos_grafica(instruccioness[i], i, 0, '')
+
+        texto += "\n}"
+        f = open('bb.dot', 'w')
+
+        f.write(texto)
+        f.close()
+        os.environ["PATH"] += os.pathsep + 'C:/Program Files/Graphviz/bin'
+        os.system(f'dot -Tpng bb.dot -o GRAFICA_202200066.png')
+```
+- nodos_grafica() es la funcion encargada de crear los nodos para la grafica con sus respectivos datos y operaciones
+```python
+def nodos_grafica(operacion, numero, llave, barra):
+        valor = ""
+
+        if operacion:
+            if type(operacion) == COperacion:
+                
+                valor += f'nodo{numero}{llave}{barra}[label="{operacion.operar(None)}"];\n'
+
+            if type(operacion) == CAritmetica:
+                valor += f'nodo{numero}{llave}{barra}[label="{operacion.tipo.lexema}\\n{operacion.operar(None)}"];\n'
+
+                valor += nodos_grafica(operacion.left ,numero, llave+1, barra+"_left")
+
+                valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_left;\n'
+
+                valor += nodos_grafica(operacion.right,numero, llave+1, barra+"_right")
+
+                valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_right;\n'
+            
+            if type(operacion) == CTrigonometrica:
+                
+                valor += f'nodo{numero}{llave}{barra}[label="{operacion.tipo.lexema}\\n{operacion.operar(None)}"];\n'
+
+                valor += nodos_grafica(operacion.left,numero, llave+1, barra+"_tri")
+
+                valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_tri;\n'
+
+        return valor
+```
+## COperacion
+En esta clase su constructor se va a identificar el tipo de operacion segun sus valores numericos y tambien obtendra el valor fila y columna
+```python
+class COperacion(abstract):
+    
+    def __init__(self, valor,fila, columna):
+        self.valor = valor
+        super().__init__(fila, columna)
+    
+    def operar(self,arbol):
+        return self.valor
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()
+```
+## CLexema
+Esta clase va a manejar los lexemas que se le envien asi como sus filas y columnas donde se encuentra para identificar su posicion
+```python
+class CLexema(abstract):
+    def __init__(self, lexema, fila, columna):
+        self.lexema= lexema
+        super().__init__(fila, columna)
+    
+    def operar(self, arbol):
+        return self.lexema
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()
+```
+## CError
+Dentro de esta clase se guardara una lista de lexemas que son clasificados como errores, tambien un contador para saber cuantos van, su tipo de error, asi su fila y columna para saber su posicion.
+```python
+class CError(abstract):
+    def __init__(self, contador,lexema_error,tipo_error, fila, columna):
+        self.lexema_error= lexema_error
+        self.contador = contador
+        self.tipo_error  = tipo_error
+        super().__init__(fila, columna)
+    
+    def operar(self, arbol):
+        return self.lexema
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()
+```
+## CAritmetica 
+En esta clase se realizan las operaciones como suma, resta, multiplicacion, division, entre otras retornando el resultado numerico despues de operar.
+```python
+class CAritmetica(abstract):
+    
+    def __init__(self,left,right,tipo,fila, columna):
+        self.left = left
+        self.right = right
+        self.tipo = tipo
+        super().__init__(fila, columna)
+    
+    def operar(self,arbol):
+        leftValue = ''
+        rightValue = ''
+        if self.left != None:
+            leftValue = self.left.operar(arbol)
+        if self.right != None:
+            rightValue = self.right.operar(arbol)
+        
+        if self.tipo.operar(arbol) == 'suma':
+            return round(leftValue + rightValue, 3)
+        elif self.tipo.operar(arbol) == 'resta':
+            return round(leftValue - rightValue, 3)
+        elif self.tipo.operar(arbol) == 'multiplicacion':
+            return round(leftValue * rightValue, 3)
+        elif self.tipo.operar(arbol) == 'division':
+            return round(leftValue / rightValue, 3)
+        elif self.tipo.operar(arbol) == 'modulo':
+            return round(leftValue % rightValue, 3)
+        elif self.tipo.operar(arbol) == 'potencia':
+            return round(leftValue ** rightValue, 3)
+        elif self.tipo.operar(arbol) == 'raiz':
+            return round(leftValue ** (1/rightValue), 3)
+        elif self.tipo.operar(arbol) == 'inverso':
+            return  round(1/leftValue, 3)
+        else:
+            return 0      
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()
+```
+## CTrigonometrica
+En esta clase se realizan las operaciones como seno, coseno, tangente
+```python
+class CTrigonometrica(abstract):
+    def __init__(self,left,tipo,fila, columna):
+        self.left = left
+        self.tipo = tipo
+        super().__init__(fila, columna)
+    
+    def operar(self, arbol):
+        leftValue = ''
+        if self.left != None:
+            leftValue = self.left.operar(arbol)
+        if self.tipo.operar(arbol) == 'seno':
+            return round(sin(leftValue), 3)
+        elif self.tipo.operar(arbol) == 'coseno':
+            return round(cos(leftValue), 3)
+        elif self.tipo.operar(arbol) == 'tangente':
+            return round(tan(leftValue), 3)
+        else:
+            return 0
+    
+    def getFila(self):
+        return super().getFila()
+    
+    def getColumna(self):
+        return super().getColumna()
+```

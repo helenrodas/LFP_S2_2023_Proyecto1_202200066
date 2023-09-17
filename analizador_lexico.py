@@ -241,8 +241,6 @@ def graficar_operaciones():
 
         for i in range(len(instruccioness)):
             texto += nodos_grafica(instruccioness[i], i, 0, '')
-            # texto += nodos_grafica(instruccioness[i], i, 0,'')
-            
 
         texto += "\n}"
         f = open('bb.dot', 'w')
@@ -260,7 +258,6 @@ def nodos_grafica(operacion, numero, llave, barra):
             if type(operacion) == COperacion:
                 
                 valor += f'nodo{numero}{llave}{barra}[label="{operacion.operar(None)}"];\n'
-
 
             if type(operacion) == CAritmetica:
                 valor += f'nodo{numero}{llave}{barra}[label="{operacion.tipo.lexema}\\n{operacion.operar(None)}"];\n'
@@ -281,6 +278,4 @@ def nodos_grafica(operacion, numero, llave, barra):
 
                 valor += f'nodo{numero}{llave}{barra} -> nodo{numero}{llave+1}{barra}_tri;\n'
 
-
         return valor
-    

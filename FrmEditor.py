@@ -94,7 +94,7 @@ class TextEditorApp:
             operacion = 1
             for resultado in resultados:
                 if isinstance(resultado.operar(None), int) or isinstance(resultado.operar(None),float) == True:
-                    resultados_as_string += str(f"Operacion: {operacion} --> {resultado.tipo.operar(None)} = {resultado.operar(None)}") + "\n"
+                    resultados_as_string += str(f"Operacion: {operacion}: {resultado.tipo.operar(None)} = {resultado.operar(None)}") + "\n"
                     operacion += 1
                 # print(resultado.operar(None))
             messagebox.showinfo("Resultados",resultados_as_string)
