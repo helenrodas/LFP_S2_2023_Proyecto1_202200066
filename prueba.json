@@ -1,0 +1,59 @@
+{ *
+    "operaciones": [
+        {
+            "operacion": "resta",
+            "valor1": 4.5,
+            "valor2": [
+                {
+                    "operacion": "tangente",
+                    "valor1": 10
+                }
+            ]
+        },
+        {
+            "operacion": "restA",
+            "valor1": 4.5,
+            "valor2": [
+                {
+                    "operacion": "coseno",
+                    "valor1": 10
+                }
+            ]
+        },
+        { ?
+            "operacion": "suma",
+            "valor1": [
+                {
+                    "operacion": "SENO",
+                    "valor1": 90
+                }
+            ],
+            "valor2": 5.32
+        },
+        {
+            "operacion": "Multiplicacion",
+            "valor1": 7,
+            "valor2": 3
+        },!$
+        {
+            "operacion": "division",
+            "valor1": 15,
+            "valor2": [
+                {
+                    "operacion": "inverso",
+                    "valor1": 10
+                }
+            ]
+        }
+    ],%%
+    "configuraciones": [
+        {
+            "texto": "Operaciones",
+            "fondo": "yellow",
+            "fuente": "black",
+            "forma": "box"
+        }
+    ]
+}
+
+

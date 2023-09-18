@@ -16,22 +16,21 @@ class CAritmetica(abstract):
         if self.right != None:
             rightValue = self.right.operar(arbol)
         
-        if self.tipo.operar(arbol) == 'suma':
+        if self.tipo.operar(arbol).lower() == 'suma':
             return round(leftValue + rightValue, 3)
-        elif self.tipo.operar(arbol) == 'resta':
+        elif self.tipo.operar(arbol).lower()  == 'resta':
             return round(leftValue - rightValue, 3)
-        elif self.tipo.operar(arbol) == 'multiplicacion':
+        elif self.tipo.operar(arbol).lower() == 'multiplicacion':
             return round(leftValue * rightValue, 3)
-        elif self.tipo.operar(arbol) == 'division':
+        elif self.tipo.operar(arbol).lower() == 'division':
             return round(leftValue / rightValue, 3)
-        elif self.tipo.operar(arbol) == 'modulo':
+        elif self.tipo.operar(arbol).lower() == 'modulo':
             return round(leftValue % rightValue, 3)
-        elif self.tipo.operar(arbol) == 'potencia':
+        elif self.tipo.operar(arbol).lower() == 'potencia':
             return round(leftValue ** rightValue, 3)
-        elif self.tipo.operar(arbol) == 'raiz':
+        elif self.tipo.operar(arbol).lower() == 'raiz':
             return round(leftValue ** (1/rightValue), 3)
-        elif self.tipo.operar(arbol) == 'inverso':
-            return  round(1/leftValue, 3)
+        
         else:
             return 0      
     

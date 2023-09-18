@@ -168,7 +168,7 @@ def operar():
             if n2.operar(None) == '[':
                 n2=operar()
                 
-        if CLexema.operar(None) == 'textos':
+        if CLexema.operar(None) == 'texto':
             textos = lista_lexemas.pop(0)
             
         if CLexema.operar(None) == 'fondo':
@@ -184,7 +184,7 @@ def operar():
         if operacion and n1 and n2:
             return CAritmetica(n1, n2, operacion, f'Inicio:{operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n2.getFila()}:{n2.getColumna()}')
             
-        elif operacion and n1 and operacion.operar(None) == ('seno' or 'coseno' or 'tangente'):
+        elif operacion and n1 and operacion.operar(None).lower() in ('seno', 'coseno', 'tangente','inverso'): #and operacion.operar(None) == ('seno' or 'coseno' or 'tangente'):
             return CTrigonometrica( n1,operacion, f'Inicio:{operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
     return None
             

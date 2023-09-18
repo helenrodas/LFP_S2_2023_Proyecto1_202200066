@@ -11,12 +11,15 @@ class CTrigonometrica(abstract):
         leftValue = ''
         if self.left != None:
             leftValue = self.left.operar(arbol)
-        if self.tipo.operar(arbol) == 'seno':
+        if self.tipo.operar(arbol).lower() == 'seno':
             return round(sin(leftValue), 3)
-        elif self.tipo.operar(arbol) == 'coseno':
+        elif self.tipo.operar(arbol).lower() == 'coseno':
             return round(cos(leftValue), 3)
-        elif self.tipo.operar(arbol) == 'tangente':
+        elif self.tipo.operar(arbol).lower() == 'tangente':
             return round(tan(leftValue), 3)
+        
+        elif self.tipo.operar(arbol) == 'inverso':
+            return  round(1/leftValue, 3)
         else:
             return 0
     
