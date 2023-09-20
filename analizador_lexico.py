@@ -156,35 +156,35 @@ def operar():
     n1 = ''
     n2 = ''
     while lista_lexemas:
-        CLexema = lista_lexemas.pop(0)
-        if CLexema.operar(None)=='operacion':
+        lex = lista_lexemas.pop(0)
+        if lex.operar(None) =='operacion':
             operacion = lista_lexemas.pop(0)
-        elif CLexema.operar(None) == 'valor1':
+        elif lex.operar(None) == 'valor1':
             n1=lista_lexemas.pop(0)
             if n1.operar(None) == '[':
                 n1=operar()
-        elif CLexema.operar(None) == 'valor2':
+        elif lex.operar(None) == 'valor2':
             n2=lista_lexemas.pop(0)
             if n2.operar(None) == '[':
                 n2=operar()
                 
-        if CLexema.operar(None) == 'texto':
+        if lex.operar(None) == 'texto':
             textos = lista_lexemas.pop(0)
             
-        if CLexema.operar(None) == 'fondo':
+        if lex.operar(None) == 'fondo':
             fondo = lista_lexemas.pop(0)
             
-        if CLexema.operar(None) == 'fuente':
+        if lex.operar(None) == 'fuente':
             fuente = lista_lexemas.pop(0)
             
-        if CLexema.operar(None) == 'forma':
+        if lex.operar(None) == 'forma':
             forma  = lista_lexemas.pop(0)
 
         
         if operacion and n1 and n2:
             return CAritmetica(n1, n2, operacion, f'Inicio:{operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n2.getFila()}:{n2.getColumna()}')
             
-        elif operacion and n1 and operacion.operar(None).lower() in ('seno', 'coseno', 'tangente','inverso'): #and operacion.operar(None) == ('seno' or 'coseno' or 'tangente'):
+        elif operacion and n1 and operacion.operar(None) in ('seno', 'coseno', 'tangente','inverso'): #and operacion.operar(None) == ('seno' or 'coseno' or 'tangente'):
             return CTrigonometrica( n1,operacion, f'Inicio:{operacion.getFila()}: {operacion.getColumna()}', f'Fin: {n1.getFila()}:{n1.getColumna()}')
     return None
             

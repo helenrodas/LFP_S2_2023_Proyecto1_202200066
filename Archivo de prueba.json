@@ -1,0 +1,205 @@
+    {
+        "Operaciones": [
+        {
+            "Operacion": "Resta",
+            "Valor1": 6.5,
+            "Valor2": 3.5
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 2.3,
+            "Valor2": 5.32
+        },
+        {
+            "Operacion": "Multiplicacion",
+            "Valor1": 2.3,
+            "Valor2": [
+            {
+                "Operacion": "Seno",
+                "Valor1": 90
+            }
+            ]
+        },
+        {
+            "Operacion": "Division",
+            "Valor1": [
+            {
+                "Operacion": "Mod",
+                "Valor1": 10,
+                "Valor2": 3
+            }
+            ],
+            "Valor2": 5.32
+        },
+        {
+            "Operacion": "Resta",
+            "Valor1": 7.8,
+            "Valor2": 1.2
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 4.5,
+            "Valor2": 6.7
+        },
+        {
+            "Operacion": "Multiplicacion",
+            "Valor1": 3.14,
+            "Valor2": [
+            {
+                "Operacion": "Coseno",
+                "Valor1": 45
+            }
+            ]
+        },
+        {
+            "Operacion": "Division",
+            "Valor1": [
+            {
+                "Operacion": "Inverso",
+                "Valor1": 8
+            }
+            ],
+            "Valor2": 2.71
+        },
+        {
+            "Operacion": "Resta",
+            "Valor1": 9.6,
+            "Valor2": 4.8
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 1.11,
+            "Valor2": 7.89
+        },
+        {
+            "Operacion": "Multiplicacion",
+            "Valor1": 6.66,
+            "Valor2": [
+            {
+                "Operacion": "Tangente",
+                "Valor1": 30
+            }
+            ]
+        },
+        {
+            "Operacion": "Division",
+            "Valor1": [
+            {
+                "Operacion": "Inverso",
+                "Valor1": 12
+            }
+            ],
+            "Valor2": 3.33
+        },
+        {
+            "Operacion": "Resta",
+            "Valor1": 10.5,
+            "Valor2": 5.5
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 2.22,
+            "Valor2": 8.88
+        },
+        {
+            "Operacion": "Multiplicacion",
+            "Valor1": 5.55,
+            "Valor2": [
+            {
+                "Operacion": "Seno",
+                "Valor1": 60
+            }
+            ]
+        },
+        {
+            "Operacion": "Division",
+            "Valor1": [
+            {
+                "Operacion": "Coseno",
+                "Valor1": 90
+            }
+            ],
+            "Valor2": 4.44
+        },
+        {
+            "Operacion": "Resta",
+            "Valor1": 8.7,
+            "Valor2": 2.3
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 3.33,
+            "Valor2": 9.99
+        },
+        {
+            "Operacion": "Multiplicacion",
+            "Valor1": 7.77,
+            "Valor2": [
+            {
+                "Operacion": "Seno",
+                "Valor1": 75
+            }
+            ]
+        },
+        {
+            "Operacion": "Division",
+            "Valor1": [
+            {
+                "Operacion": "Raiz",
+                "Valor1": 25,
+                "Valor2": 2
+            }
+            ],
+            "Valor2": 6.66
+        },
+        {
+            "Operacion": "Resta",
+            "Valor1": 5.6,
+            "Valor2": 0.9
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 4.44,
+            "Valor2": 7.77
+        },
+        {
+            "Operacion": "Multiplicacion",
+            "Valor1": 8.88,
+            "Valor2": [
+            {
+                "Operacion": "Potencia",
+                "Valor1": 10,
+                "Valor2": 2
+            }
+            ]
+        },
+        {
+            "Operacion": "Division",
+            "Valor1": [
+            {
+                "Operacion": "Mod",
+                "Valor1": 25
+            }
+            ],
+            "Valor2": 8.88
+        },
+        {
+            "Operacion": "Resta",
+            "Valor1": 3.4,
+            "Valor2": 2.1
+        },
+        {
+            "Operacion": "Suma",
+            "Valor1": 5.55,
+            "Valor2": 6.66
+        }
+        ],
+        "Configuraciones": [
+        {
+            "texto": "Realizacion de Operaciones",
+            "color-fondo-nodo": "amarillo",
+            "color-fuente-nodo": "negro",
+            "forma-nodo": "circulo"
+        }
+        ]
+    }

@@ -24,7 +24,7 @@ class CAritmetica(abstract):
             return round(leftValue * rightValue, 3)
         elif self.tipo.operar(arbol).lower() == 'division':
             return round(leftValue / rightValue, 3)
-        elif self.tipo.operar(arbol).lower() == 'modulo':
+        elif self.tipo.operar(arbol).lower() == 'mod':
             return round(leftValue % rightValue, 3)
         elif self.tipo.operar(arbol).lower() == 'potencia':
             return round(leftValue ** rightValue, 3)
